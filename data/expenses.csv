@@ -1,0 +1,56 @@
+ExpenseID,Date,Category,Description,Amount
+EXP001,2025-08-10,Salary,Manager salary,57564.71
+EXP002,2025-02-16,Other,Office supplies,38933.85
+EXP003,2025-11-02,Marketing,Print marketing,25216.03
+EXP004,2025-04-18,Salary,Manager salary,72845.99
+EXP005,2025-08-21,Transportation,Delivery fuel,33565.92
+EXP006,2025-03-10,Transportation,Vehicle maintenance,45124.34
+EXP007,2025-05-16,Inventory,Stock purchase,57085.4
+EXP008,2025-05-05,Other,Miscellaneous expense,38962.59
+EXP009,2025-10-14,Rent,Warehouse rent payment,49732.55
+EXP010,2025-05-08,Inventory,Raw materials,54357.09
+EXP011,2025-10-08,Salary,Employee wages,12217.92
+EXP012,2025-04-08,Salary,Employee wages,39117.08
+EXP013,2025-08-30,Other,Office supplies,38652.25
+EXP014,2025-07-22,Salary,Staff salaries,59375.97
+EXP015,2025-04-29,Inventory,Raw materials,33661.6
+EXP016,2025-10-07,Utilities,Internet bill,48286.1
+EXP017,2025-02-22,Inventory,Stock purchase,27154.52
+EXP018,2025-02-23,Other,Miscellaneous expense,72408.46
+EXP019,2025-04-06,Transportation,Vehicle maintenance,34176.54
+EXP020,2025-08-05,Utilities,Internet bill,14694.68
+EXP021,2025-11-22,Other,Bank charges,41845.59
+EXP022,2025-03-17,Utilities,Water bill,77244.72
+EXP023,2025-05-05,Technology,IT equipment,12205.18
+EXP024,2025-07-27,Technology,IT equipment,45172.14
+EXP025,2025-05-07,Marketing,Google ads,32393.66
+EXP026,2025-08-31,Salary,Employee wages,35514.93
+EXP027,2025-06-16,Technology,IT equipment,70504.23
+EXP028,2025-12-01,Utilities,Electricity bill,77544.67
+EXP029,2025-10-23,Inventory,Raw materials,54177.83
+EXP030,2025-10-29,Inventory,Supplier payment,70983.37
+EXP031,2025-07-14,Technology,Server hosting,68655.59
+EXP032,2025-09-18,Salary,Staff salaries,53463.94
+EXP033,2025-01-06,Rent,Monthly office rent,73827.3
+EXP034,2025-11-19,Utilities,Water bill,56646.58
+EXP035,2025-08-07,Technology,IT equipment,72636.21
+EXP036,2025-04-25,Rent,Monthly office rent,43850.31
+EXP037,2025-11-15,Utilities,Electricity bill,11239.16
+EXP038,2025-05-28,Technology,Software license,53033.63
+EXP039,2025-07-07,Transportation,Delivery fuel,71641.4
+EXP040,2025-04-07,Rent,Monthly office rent,77940.12
+EXP041,2025-02-10,Utilities,Water bill,36841.68
+EXP042,2025-10-23,Technology,Server hosting,67362.89
+EXP043,2025-01-28,Rent,Monthly office rent,23712.93
+EXP044,2025-02-13,Rent,Warehouse rent payment,45638.62
+EXP045,2025-04-11,Other,Bank charges,29880.77
+EXP046,2025-04-15,Salary,Manager salary,17597.8
+EXP047,2025-10-27,Other,Bank charges,47475.66
+EXP048,2025-09-01,Utilities,Gas bill,67714.6
+EXP049,2025-03-05,Transportation,Courier charges,32267.31
+EXP050,2025-11-29,Other,Office supplies,13863.45
+EXP051,2025-12-01,Inventory,Raw materials,42927.61
+EXP052,2025-08-21,Technology,Software license,21531.12
+EXP053,2025-08-22,Utilities,Water bill,72321.11
+EXP054,2025-07-08,Technology,Software license,77756.83
+EXP055,2025-09-04,Salary,Staff salaries,24436.24

@@ -1,0 +1,121 @@
+SaleID,Date,Product,Customer,Quantity,UnitPrice,TotalAmount,PaymentMethod
+SAL001,2025-12-06,Filing Cabinet,Nida Khan,1,16000.0,16000.0,Bank Transfer
+SAL002,2025-03-12,Headphones,Usman Raza,7,4000.0,28000.0,Cash
+SAL003,2025-06-16,Coffee Maker,Asad Siddiqui,4,12000.0,48000.0,Mobile Payment
+SAL004,2025-06-01,Wireless Mouse,Sadia Ahmed,5,1500.0,7500.0,Bank Transfer
+SAL005,2025-06-02,Coffee Maker,Faisal Khan,4,12000.0,48000.0,Cash
+SAL006,2025-01-28,Office Chair,Kamran Butt,4,15000.0,60000.0,Credit
+SAL007,2025-07-02,Ballpoint Pens Box,Ayesha Raza,6,600.0,3600.0,Mobile Payment
+SAL008,2025-11-11,Webcam,Mahnoor Sheikh,7,4500.0,31500.0,Bank Transfer
+SAL009,2025-09-27,Desktop PC,Owais Siddiqui,2,80000.0,160000.0,Bank Transfer
+SAL010,2025-03-16,Notebook,Sadia Ahmed,3,450.0,1350.0,Mobile Payment
+SAL011,2025-01-27,Office Chair,Rabia Siddiqui,9,15000.0,135000.0,Cash
+SAL012,2025-01-27,Desktop PC,Owais Butt,2,80000.0,160000.0,Mobile Payment
+SAL013,2025-07-19,Ballpoint Pens Box,Bilal Raza,3,600.0,1800.0,Cash
+SAL014,2025-07-26,Webcam,Owais Hashmi,3,4500.0,13500.0,Credit
+SAL015,2025-09-17,Webcam,Ayesha Raza,10,4500.0,45000.0,Bank Transfer
+SAL016,2025-05-16,Ballpoint Pens Box,Kiran Raza,1,600.0,600.0,Credit
+SAL017,2025-07-15,Coffee Maker,Gohar Ahmed,3,12000.0,36000.0,Credit
+SAL018,2025-07-19,Laptop,Ali Khan,7,65000.0,455000.0,Card
+SAL019,2025-09-15,Coffee Maker,Owais Raza,1,12000.0,12000.0,Mobile Payment
+SAL020,2025-02-16,Webcam,Owais Raza,6,4500.0,27000.0,Mobile Payment
+SAL021,2025-05-11,Monitor 24 inch,Junaid Khan,8,18000.0,144000.0,Credit
+SAL022,2025-04-07,Headphones,Faisal Sheikh,9,4000.0,36000.0,Cash
+SAL023,2025-03-23,Headphones,Sana Hashmi,6,4000.0,24000.0,Card
+SAL024,2025-11-23,Stapler,Faisal Khan,6,800.0,4800.0,Cash
+SAL025,2025-03-22,Office Chair,Kiran Raza,6,15000.0,90000.0,Bank Transfer
+SAL026,2025-03-22,Headphones,Faisal Sheikh,8,4000.0,32000.0,Mobile Payment
+SAL027,2025-01-25,Wireless Mouse,Kamran Malik,9,1500.0,13500.0,Cash
+SAL028,2025-03-13,Bookshelf,Faisal Khan,4,18000.0,72000.0,Cash
+SAL029,2025-06-11,USB Keyboard,Mahnoor Ahmed,7,2500.0,17500.0,Bank Transfer
+SAL030,2025-06-14,Ballpoint Pens Box,Mahnoor Sheikh,5,600.0,3000.0,Bank Transfer
+SAL031,2025-08-05,Laptop,Bilal Ahmed,6,65000.0,390000.0,Credit
+SAL032,2025-07-13,Office Chair,Kamran Malik,8,15000.0,120000.0,Credit
+SAL033,2025-07-20,Tablet,Junaid Khan,4,40000.0,160000.0,Bank Transfer
+SAL034,2025-10-15,Filing Cabinet,Usman Raza,4,16000.0,64000.0,Bank Transfer
+SAL035,2025-08-11,USB Keyboard,Usman Raza,1,2500.0,2500.0,Credit
+SAL036,2025-02-07,Headphones,Owais Siddiqui,7,4000.0,28000.0,Bank Transfer
+SAL037,2025-07-21,Notebook,Faisal Khan,5,450.0,2250.0,Cash
+SAL038,2025-12-15,Filing Cabinet,Faisal Sheikh,1,16000.0,16000.0,Card
+SAL039,2025-07-10,Wireless Mouse,Owais Hashmi,7,1500.0,10500.0,Credit
+SAL040,2025-06-30,A4 Paper Pack,Faisal Khan,1,900.0,900.0,Card
+SAL041,2025-07-04,Office Chair,Usman Raza,4,15000.0,60000.0,Bank Transfer
+SAL042,2025-09-01,Filing Cabinet,Nadia Ahmed,6,16000.0,96000.0,Bank Transfer
+SAL043,2025-03-17,Desk,Asad Siddiqui,8,20000.0,160000.0,Mobile Payment
+SAL044,2025-10-11,Bookshelf,Asad Malik,9,18000.0,162000.0,Card
+SAL045,2025-08-14,Bookshelf,Tariq Chaudhry,6,18000.0,108000.0,Mobile Payment
+SAL046,2025-10-17,Desktop PC,Usman Raza,4,80000.0,320000.0,Cash
+SAL047,2025-03-15,Laptop,Ayesha Raza,9,65000.0,585000.0,Cash
+SAL048,2025-05-31,Filing Cabinet,Gohar Ahmed,10,16000.0,160000.0,Card
+SAL049,2025-12-08,Coffee Maker,Sadia Ahmed,2,12000.0,24000.0,Card
+SAL050,2025-07-15,Wireless Mouse,Ali Khan,8,1500.0,12000.0,Credit
+SAL051,2025-02-19,Laptop,Owais Butt,3,65000.0,195000.0,Card
+SAL052,2025-05-10,Office Chair,Owais Siddiqui,3,15000.0,45000.0,Mobile Payment
+SAL053,2025-06-05,Water Dispenser,Bilal Raza,10,15000.0,150000.0,Bank Transfer
+SAL054,2025-03-31,Webcam,Faisal Sheikh,10,4500.0,45000.0,Credit
+SAL055,2025-02-10,Smartphone,Faisal Sheikh,4,55000.0,220000.0,Bank Transfer
+SAL056,2025-10-28,Wireless Mouse,Owais Butt,10,1500.0,15000.0,Cash
+SAL057,2025-01-30,Filing Cabinet,Bilal Raza,8,16000.0,128000.0,Credit
+SAL058,2025-01-26,USB Keyboard,Mahnoor Ahmed,1,2500.0,2500.0,Mobile Payment
+SAL059,2025-03-23,Filing Cabinet,Ayesha Hashmi,2,16000.0,32000.0,Bank Transfer
+SAL060,2025-02-16,Ballpoint Pens Box,Sana Hashmi,3,600.0,1800.0,Mobile Payment
+SAL061,2025-01-29,Headphones,Owais Siddiqui,8,4000.0,32000.0,Cash
+SAL062,2025-08-30,Tablet,Asad Siddiqui,8,40000.0,320000.0,Cash
+SAL063,2025-03-27,Laptop,Mahnoor Ahmed,5,65000.0,325000.0,Cash
+SAL064,2025-03-22,Water Dispenser,Asad Siddiqui,7,15000.0,105000.0,Card
+SAL065,2025-11-11,Laptop,Faisal Khan,9,65000.0,585000.0,Mobile Payment
+SAL066,2025-02-24,Filing Cabinet,Faisal Sheikh,9,16000.0,144000.0,Card
+SAL067,2025-03-26,Bookshelf,Faisal Sheikh,4,18000.0,72000.0,Cash
+SAL068,2025-09-04,A4 Paper Pack,Gohar Ahmed,9,900.0,8100.0,Mobile Payment
+SAL069,2025-12-29,Stapler,Nadia Ahmed,5,800.0,4000.0,Credit
+SAL070,2025-04-10,Office Chair,Sana Hashmi,10,15000.0,150000.0,Card
+SAL071,2025-11-11,Filing Cabinet,Gohar Ahmed,7,16000.0,112000.0,Cash
+SAL072,2025-10-26,Webcam,Kamran Butt,2,4500.0,9000.0,Cash
+SAL073,2025-07-12,Desktop PC,Bilal Raza,3,80000.0,240000.0,Card
+SAL074,2025-03-14,Tablet,Junaid Khan,1,40000.0,40000.0,Card
+SAL075,2025-06-16,A4 Paper Pack,Nida Khan,5,900.0,4500.0,Bank Transfer
+SAL076,2025-12-08,Tablet,Tariq Chaudhry,6,40000.0,240000.0,Bank Transfer
+SAL077,2025-11-14,Water Dispenser,Usman Raza,9,15000.0,135000.0,Credit
+SAL078,2025-02-04,Printer,Sana Hashmi,9,22000.0,198000.0,Credit
+SAL079,2025-11-11,Water Dispenser,Fatima Hashmi,5,15000.0,75000.0,Credit
+SAL080,2025-11-24,Headphones,Gohar Ahmed,5,4000.0,20000.0,Cash
+SAL081,2025-11-23,Water Dispenser,Nida Khan,7,15000.0,105000.0,Credit
+SAL082,2025-02-05,Webcam,Faisal Sheikh,7,4500.0,31500.0,Credit
+SAL083,2025-06-28,Water Dispenser,Nida Khan,9,15000.0,135000.0,Bank Transfer
+SAL084,2025-04-29,Coffee Maker,Nadia Ahmed,4,12000.0,48000.0,Credit
+SAL085,2025-12-11,Webcam,Sana Hashmi,4,4500.0,18000.0,Mobile Payment
+SAL086,2025-08-02,Monitor 24 inch,Faisal Sheikh,9,18000.0,162000.0,Credit
+SAL087,2025-09-19,Laptop,Asad Malik,9,65000.0,585000.0,Mobile Payment
+SAL088,2025-06-07,Tablet,Kamran Malik,10,40000.0,400000.0,Bank Transfer
+SAL089,2025-09-12,Webcam,Kamran Malik,10,4500.0,45000.0,Mobile Payment
+SAL090,2025-08-06,Water Dispenser,Owais Raza,4,15000.0,60000.0,Credit
+SAL091,2025-02-11,Smartphone,Owais Hashmi,7,55000.0,385000.0,Mobile Payment
+SAL092,2025-10-30,Ballpoint Pens Box,Owais Siddiqui,6,600.0,3600.0,Card
+SAL093,2025-01-20,Printer,Bilal Ahmed,9,22000.0,198000.0,Mobile Payment
+SAL094,2025-11-09,Laptop,Junaid Khan,2,65000.0,130000.0,Bank Transfer
+SAL095,2025-05-13,Smartphone,Sana Hashmi,7,55000.0,385000.0,Mobile Payment
+SAL096,2025-10-08,Notebook,Gohar Ahmed,2,450.0,900.0,Credit
+SAL097,2025-10-14,Office Chair,Kamran Malik,3,15000.0,45000.0,Mobile Payment
+SAL098,2025-09-01,Printer,Tariq Chaudhry,5,22000.0,110000.0,Bank Transfer
+SAL099,2025-01-31,USB Keyboard,Gohar Ahmed,2,2500.0,5000.0,Mobile Payment
+SAL100,2025-04-01,Headphones,Faisal Sheikh,9,4000.0,36000.0,Mobile Payment
+SAL101,2025-03-04,USB Keyboard,Nadia Ahmed,10,2500.0,25000.0,Cash
+SAL102,2025-05-11,Desk,Owais Hashmi,6,20000.0,120000.0,Credit
+SAL103,2025-09-03,USB Keyboard,Owais Hashmi,1,2500.0,2500.0,Cash
+SAL104,2025-02-10,Bookshelf,Bilal Raza,3,18000.0,54000.0,Mobile Payment
+SAL105,2025-03-15,Tablet,Rabia Siddiqui,2,40000.0,80000.0,Cash
+SAL106,2025-04-02,A4 Paper Pack,Mahnoor Ahmed,9,900.0,8100.0,Cash
+SAL107,2025-07-24,USB Keyboard,Sana Hashmi,9,2500.0,22500.0,Cash
+SAL108,2025-11-10,Ballpoint Pens Box,Faisal Sheikh,7,600.0,4200.0,Bank Transfer
+SAL109,2025-07-03,Smartphone,Asad Malik,9,55000.0,495000.0,Bank Transfer
+SAL110,2025-06-29,Filing Cabinet,Bilal Raza,10,16000.0,160000.0,Mobile Payment
+SAL111,2025-05-15,Notebook,Owais Raza,3,450.0,1350.0,Bank Transfer
+SAL112,2025-01-15,Webcam,Sana Hashmi,9,4500.0,40500.0,Card
+SAL113,2025-11-14,Coffee Maker,Owais Siddiqui,10,12000.0,120000.0,Mobile Payment
+SAL114,2025-06-03,Wireless Mouse,Usman Raza,4,1500.0,6000.0,Cash
+SAL115,2025-04-09,Headphones,Usman Raza,8,4000.0,32000.0,Cash
+SAL116,2025-01-10,Smartphone,Asad Siddiqui,1,55000.0,55000.0,Bank Transfer
+SAL117,2025-10-09,Stapler,Nadia Ahmed,9,800.0,7200.0,Credit
+SAL118,2025-12-02,A4 Paper Pack,Hira Siddiqui,8,900.0,7200.0,Credit
+SAL119,2025-08-17,Desk,Sana Hashmi,9,20000.0,180000.0,Mobile Payment
+SAL120,2025-01-29,Coffee Maker,Sana Hashmi,6,12000.0,72000.0,Credit
