@@ -199,7 +199,7 @@ def create_table(parent, columns, data, row_height=30, heading_height=35):
                 from utils.helpers import Helpers
                 text_color = Helpers.customer_category_color(str(value))
 
-            anchor = _col_anchor(col_name)
+            anchor = "center"
             lbl = ctk.CTkLabel(scroll, text=str(value),
                                font=ctk.CTkFont(size=12),
                                text_color=text_color, anchor=anchor,
