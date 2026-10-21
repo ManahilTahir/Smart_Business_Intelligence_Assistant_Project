@@ -4,6 +4,7 @@ Provides factory methods for consistent UI elements across the app.
 """
 
 import customtkinter as ctk
+from tkinter import Canvas, BOTH, LEFT, RIGHT, Y, X
 
 
 COLORS = {
@@ -33,27 +34,23 @@ CARD_COLORS = [
 
 def create_card(parent, title, value, icon="", color_idx=0):
     bg_color, accent_color = CARD_COLORS[color_idx % len(CARD_COLORS)]
-    card = ctk.CTkFrame(parent, fg_color=card_fg(), corner_radius=12,
-                        border_width=1, border_color=COLORS["border"])
+    card = ctk.CTkFrame(parent, fg_color=accent_color, corner_radius=12)
     card.pack_propagate(False)
-
-    accent = ctk.CTkFrame(card, fg_color=accent_color, corner_radius=10, height=6)
-    accent.pack(fill="x", padx=10, pady=(10, 0))
 
     if icon:
         icon_label = ctk.CTkLabel(card, text=icon, font=ctk.CTkFont(size=28),
-                                  text_color=accent_color)
-        icon_label.pack(pady=(10, 0))
+                                  text_color="white")
+        icon_label.pack(pady=(12, 0))
 
     title_label = ctk.CTkLabel(card, text=title,
-                               font=ctk.CTkFont(size=13, weight="normal"),
-                               text_color=COLORS["text_light"])
+                               font=ctk.CTkFont(size=13, weight="bold"),
+                               text_color="#E8E8E8")
     title_label.pack(pady=(5, 0))
 
     value_label = ctk.CTkLabel(card, text=value,
                                font=ctk.CTkFont(size=22, weight="bold"),
-                               text_color=COLORS["text_dark"])
-    value_label.pack(pady=(2, 10))
+                               text_color="white")
+    value_label.pack(pady=(2, 12))
 
     return card
 
@@ -165,30 +162,29 @@ def create_table(parent, columns, data, row_height=30, heading_height=35):
         empty.pack(expand=True)
         return frame
 
-    scroll = ctk.CTkScrollableFrame(frame, fg_color=card_fg())
-    scroll.pack(fill="both", expand=True, padx=5, pady=5)
-
     n_cols = len(columns)
-    for c in range(n_cols):
-        scroll.grid_columnconfigure(c, weight=0, minsize=_col_width(columns[c], n_cols))
+    col_widths = [_col_width(c, n_cols) for c in columns]
 
-    header_frame = ctk.CTkFrame(scroll, fg_color=COLORS["primary"], corner_radius=6)
-    header_frame.grid(row=0, column=0, columnspan=n_cols, sticky="ew", pady=(0, 2))
+    header_frame = ctk.CTkFrame(frame, fg_color=COLORS["primary"], corner_radius=6)
+    header_frame.pack(fill="x", padx=5, pady=(5, 0))
 
     for c, col_name in enumerate(columns):
-        anchor = _col_anchor(col_name)
         lbl = ctk.CTkLabel(header_frame, text=col_name,
                            font=ctk.CTkFont(size=12, weight="bold"),
-                           text_color="white", anchor=anchor)
-        lbl.grid(row=0, column=c, sticky="ew", padx=2, pady=6)
-        header_frame.grid_columnconfigure(c, weight=1)
+                           text_color="white", anchor="center")
+        lbl.grid(row=0, column=c, sticky="ew", padx=2, pady=6, ipadx=4)
+        header_frame.grid_columnconfigure(c, weight=1, minsize=col_widths[c])
+
+    scroll = ctk.CTkScrollableFrame(frame, fg_color=card_fg())
+    scroll.pack(fill="both", expand=True, padx=5, pady=(0, 5))
+
+    for c in range(n_cols):
+        scroll.grid_columnconfigure(c, weight=1, minsize=col_widths[c])
 
     for row_idx, row_data in enumerate(data):
         row_color = card_fg() if row_idx % 2 == 0 else (
             "#F7F9FC" if ctk.get_appearance_mode() == "Light" else "#333333"
         )
-        row_frame = ctk.CTkFrame(scroll, fg_color=row_color, corner_radius=4)
-        row_frame.grid(row=row_idx + 1, column=0, columnspan=n_cols, sticky="ew", pady=1)
 
         for c, col_name in enumerate(columns):
             value = row_data.get(col_name, "")
@@ -204,11 +200,11 @@ def create_table(parent, columns, data, row_height=30, heading_height=35):
                 text_color = Helpers.customer_category_color(str(value))
 
             anchor = _col_anchor(col_name)
-            lbl = ctk.CTkLabel(row_frame, text=str(value),
+            lbl = ctk.CTkLabel(scroll, text=str(value),
                                font=ctk.CTkFont(size=12),
-                               text_color=text_color, anchor=anchor)
-            lbl.grid(row=0, column=c, sticky="ew", padx=2, pady=4)
-            row_frame.grid_columnconfigure(c, weight=1)
+                               text_color=text_color, anchor=anchor,
+                               fg_color=row_color, corner_radius=4)
+            lbl.grid(row=row_idx, column=c, sticky="ew", padx=2, pady=1, ipadx=4, ipady=3)
 
     return frame
 
@@ -235,3 +231,193 @@ def create_status_badge(parent, text, color):
                          text_color="white", fg_color=color,
                          corner_radius=10, width=90, height=22)
     return badge
+
+CHART_COLORS = ["#3498DB", "#E74C3C", "#27AE60", "#9B59B6", "#F39C12",
+                "#1ABC9C", "#34495E", "#E67E22", "#2ECC71", "#D35400",
+                "#8E44AD", "#16A085", "#2980B9", "#C0392B"]
+
+
+def create_bar_chart(parent, title, labels, values, color="#3498DB", height=220):
+    frame = ctk.CTkFrame(parent, fg_color=card_fg(), corner_radius=10,
+                         border_width=1, border_color=COLORS["border"])
+    frame.pack(fill="both", expand=True, padx=5, pady=5)
+
+    ctk.CTkLabel(frame, text=title, font=ctk.CTkFont(size=14, weight="bold"),
+                 text_color=COLORS["primary"]).pack(anchor="w", padx=10, pady=(8, 2))
+
+    if not labels or not values:
+        ctk.CTkLabel(frame, text="No data", font=ctk.CTkFont(size=12),
+                     text_color=COLORS["text_light"]).pack(pady=20)
+        return frame
+
+    chart_wrap = ctk.CTkFrame(frame, fg_color=card_fg())
+    chart_wrap.pack(fill="both", expand=True, padx=5, pady=(0, 8))
+
+    canvas = Canvas(chart_wrap, bg=card_fg(), highlightthickness=0)
+    canvas.pack(fill="both", expand=True)
+
+    def draw_chart(event=None):
+        canvas.delete("all")
+        w = canvas.winfo_width()
+        h = canvas.winfo_height()
+        if w < 50 or h < 50:
+            return
+        n = len(labels)
+        max_val = max(values) if max(values) > 0 else 1
+        left_pad = 50
+        bottom_pad = 45
+        top_pad = 15
+        right_pad = 15
+        chart_w = w - left_pad - right_pad
+        chart_h = h - bottom_pad - top_pad
+        bar_w = chart_w / n * 0.65
+        gap = chart_w / n * 0.35
+
+        for i in range(5):
+            y = top_pad + chart_h - (chart_h * i / 4)
+            val = max_val * i / 4
+            canvas.create_line(left_pad, y, w - right_pad, y, fill="#E0E0E0", dash=(2, 2))
+            canvas.create_text(left_pad - 5, y, text=f"{val:,.0f}", anchor="e",
+                               font=("Arial", 8), fill="#7F8C8D")
+
+        for i, (label, val) in enumerate(zip(labels, values)):
+            x = left_pad + i * (bar_w + gap) + gap / 2
+            bar_h = (val / max_val) * chart_h if max_val > 0 else 0
+            y_top = top_pad + chart_h - bar_h
+            bar_color = CHART_COLORS[i % len(CHART_COLORS)] if color == "multi" else color
+            canvas.create_rectangle(x, y_top, x + bar_w, top_pad + chart_h,
+                                    fill=bar_color, outline="")
+            canvas.create_text(x + bar_w / 2, top_pad + chart_h + 8, text=str(label)[:10],
+                               anchor="n", font=("Arial", 8), fill="#2C3E50", angle=0)
+            if bar_h > 20:
+                canvas.create_text(x + bar_w / 2, y_top - 5, text=f"{val:,.0f}",
+                                   anchor="s", font=("Arial", 8), fill="#2C3E50")
+
+    canvas.bind("<Configure>", draw_chart)
+    chart_wrap.after(100, lambda: draw_chart())
+    return frame
+
+
+def create_pie_chart(parent, title, labels, values, height=220):
+    import math
+    frame = ctk.CTkFrame(parent, fg_color=card_fg(), corner_radius=10,
+                         border_width=1, border_color=COLORS["border"])
+    frame.pack(fill="both", expand=True, padx=5, pady=5)
+
+    ctk.CTkLabel(frame, text=title, font=ctk.CTkFont(size=14, weight="bold"),
+                 text_color=COLORS["primary"]).pack(anchor="w", padx=10, pady=(8, 2))
+
+    if not labels or not values:
+        ctk.CTkLabel(frame, text="No data", font=ctk.CTkFont(size=12),
+                     text_color=COLORS["text_light"]).pack(pady=20)
+        return frame
+
+    chart_wrap = ctk.CTkFrame(frame, fg_color=card_fg())
+    chart_wrap.pack(fill="both", expand=True, padx=5, pady=(0, 8))
+
+    canvas = Canvas(chart_wrap, bg=card_fg(), highlightthickness=0)
+    canvas.pack(fill="both", expand=True)
+
+    def draw_chart(event=None):
+        canvas.delete("all")
+        w = canvas.winfo_width()
+        h = canvas.winfo_height()
+        if w < 50 or h < 50:
+            return
+        total = sum(values)
+        if total <= 0:
+            return
+        cx = w * 0.35
+        cy = h / 2
+        radius = min(w * 0.3, h * 0.4)
+        start_angle = 90
+
+        for i, (label, val) in enumerate(zip(labels, values)):
+            extent = (val / total) * 360
+            color = CHART_COLORS[i % len(CHART_COLORS)]
+            canvas.create_arc(cx - radius, cy - radius, cx + radius, cy + radius,
+                              start=start_angle, extent=-extent, fill=color, outline="white", style="pieslice")
+            mid_angle = math.radians(start_angle - extent / 2)
+            lx = cx + (radius * 0.6) * math.cos(mid_angle)
+            ly = cy - (radius * 0.6) * math.sin(mid_angle)
+            pct = (val / total) * 100
+            if pct > 5:
+                canvas.create_text(lx, ly, text=f"{pct:.0f}%", font=("Arial", 9, "bold"), fill="white")
+            start_angle -= extent
+
+        legend_x = w * 0.7
+        for i, (label, val) in enumerate(zip(labels, values)):
+            color = CHART_COLORS[i % len(CHART_COLORS)]
+            ly = 20 + i * 20
+            if ly > h - 10:
+                break
+            canvas.create_rectangle(legend_x, ly, legend_x + 12, ly + 12, fill=color, outline="")
+            canvas.create_text(legend_x + 16, ly + 6, text=str(label)[:12], anchor="w",
+                               font=("Arial", 9), fill="#2C3E50")
+
+    canvas.bind("<Configure>", draw_chart)
+    chart_wrap.after(100, lambda: draw_chart())
+    return frame
+
+
+def create_line_chart(parent, title, labels, values, color="#2980B9", height=220):
+    frame = ctk.CTkFrame(parent, fg_color=card_fg(), corner_radius=10,
+                         border_width=1, border_color=COLORS["border"])
+    frame.pack(fill="both", expand=True, padx=5, pady=5)
+
+    ctk.CTkLabel(frame, text=title, font=ctk.CTkFont(size=14, weight="bold"),
+                 text_color=COLORS["primary"]).pack(anchor="w", padx=10, pady=(8, 2))
+
+    if not labels or not values:
+        ctk.CTkLabel(frame, text="No data", font=ctk.CTkFont(size=12),
+                     text_color=COLORS["text_light"]).pack(pady=20)
+        return frame
+
+    chart_wrap = ctk.CTkFrame(frame, fg_color=card_fg())
+    chart_wrap.pack(fill="both", expand=True, padx=5, pady=(0, 8))
+
+    canvas = Canvas(chart_wrap, bg=card_fg(), highlightthickness=0)
+    canvas.pack(fill="both", expand=True)
+
+    def draw_chart(event=None):
+        canvas.delete("all")
+        w = canvas.winfo_width()
+        h = canvas.winfo_height()
+        if w < 50 or h < 50:
+            return
+        n = len(labels)
+        max_val = max(values) if max(values) > 0 else 1
+        min_val = min(values) if values else 0
+        left_pad = 55
+        bottom_pad = 45
+        top_pad = 15
+        right_pad = 15
+        chart_w = w - left_pad - right_pad
+        chart_h = h - bottom_pad - top_pad
+        val_range = max_val - min_val if max_val != min_val else 1
+
+        for i in range(5):
+            y = top_pad + chart_h - (chart_h * i / 4)
+            val = min_val + (max_val - min_val) * i / 4
+            canvas.create_line(left_pad, y, w - right_pad, y, fill="#E0E0E0", dash=(2, 2))
+            canvas.create_text(left_pad - 5, y, text=f"{val:,.0f}", anchor="e",
+                               font=("Arial", 8), fill="#7F8C8D")
+
+        points = []
+        for i, (label, val) in enumerate(zip(labels, values)):
+            x = left_pad + (chart_w * i / (n - 1)) if n > 1 else left_pad + chart_w / 2
+            y = top_pad + chart_h - ((val - min_val) / val_range) * chart_h
+            points.append((x, y))
+            canvas.create_text(x, top_pad + chart_h + 8, text=str(label)[:10],
+                               anchor="n", font=("Arial", 8), fill="#2C3E50")
+
+        for i in range(len(points) - 1):
+            canvas.create_line(points[i][0], points[i][1], points[i + 1][0], points[i + 1][1],
+                               fill=color, width=2)
+
+        for x, y in points:
+            canvas.create_oval(x - 4, y - 4, x + 4, y + 4, fill=color, outline="white")
+
+    canvas.bind("<Configure>", draw_chart)
+    chart_wrap.after(100, lambda: draw_chart())
+    return frame

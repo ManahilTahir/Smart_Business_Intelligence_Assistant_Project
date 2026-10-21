@@ -111,7 +111,7 @@ class ProductsPage:
     def _show_form_dialog(self, title, is_edit=False):
         dialog = ctk.CTkToplevel(self.frame)
         dialog.title(title)
-        dialog.geometry("450x550")
+        dialog.geometry("470x640")
         dialog.grab_set()
 
         ctk.CTkLabel(dialog, text=title, font=ctk.CTkFont(size=20, weight="bold"),

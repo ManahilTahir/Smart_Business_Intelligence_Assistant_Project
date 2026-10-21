@@ -68,17 +68,34 @@ class InventoryPage:
         create_button(top_frame, "📦 Restock Product", self._restock_dialog,
                       fg_color=COLORS["primary"], hover_color=COLORS["primary_hover"]).pack(side="left", padx=5)
 
+        filter_frame = ctk.CTkFrame(self.frame, fg_color="transparent")
+        filter_frame.pack(fill="x", padx=20, pady=5)
+        ctk.CTkLabel(filter_frame, text="Select Product:", font=ctk.CTkFont(size=13)).pack(side="left", padx=5)
+        prod_names = ["All"] + self.app.product_manager.get_product_names()
+        self._prod_filter_combo = ctk.CTkComboBox(filter_frame, values=prod_names, height=32, width=200,
+                                                  command=self._on_prod_filter)
+        self._prod_filter_combo.set("All")
+        self._prod_filter_combo.pack(side="left", padx=5)
+
         create_search_bar(self.frame, self._on_search, "Search by product name, category, ID...")
         self._load_table()
+
+    def _on_prod_filter(self, choice):
+        self._load_table("")
 
     def _load_table(self, keyword=""):
         if hasattr(self, "table_frame"):
             self.table_frame.destroy()
 
+        prod_filter = self._prod_filter_combo.get() if hasattr(self, "_prod_filter_combo") else "All"
+
         if keyword:
             df = self.app.inventory_manager.search_inventory(keyword)
         else:
             df = self.app.inventory_manager.get_inventory()
+
+        if not df.empty and prod_filter != "All":
+            df = df[df["ProductName"].astype(str) == str(prod_filter)]
 
         if df.empty:
             data = []
@@ -106,7 +123,7 @@ class InventoryPage:
     def _restock_dialog(self):
         dialog = ctk.CTkToplevel(self.frame)
         dialog.title("Restock Product")
-        dialog.geometry("400x200")
+        dialog.geometry("420x280")
         dialog.grab_set()
 
         ctk.CTkLabel(dialog, text="Restock Product", font=ctk.CTkFont(size=20, weight="bold"),
@@ -142,5 +159,9 @@ class InventoryPage:
             except ValueError:
                 messagebox.showerror("Error", "Quantity must be a valid integer.")
 
-        create_button(dialog, "Restock", do_restock,
-                      fg_color=COLORS["success"], hover_color="#229954").pack(pady=15)
+        btn_frame = ctk.CTkFrame(dialog, fg_color="transparent")
+        btn_frame.pack(pady=15)
+        create_button(btn_frame, "💾 Save", do_restock,
+                      fg_color=COLORS["success"], hover_color="#229954").pack(side="left", padx=5)
+        create_button(btn_frame, "Cancel", dialog.destroy,
+                      fg_color=COLORS["danger"], hover_color="#C0392B").pack(side="left", padx=5)

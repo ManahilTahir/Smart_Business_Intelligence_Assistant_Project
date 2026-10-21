@@ -1,5 +1,5 @@
 ProductID,ProductName,Category,CostPrice,SellingPrice,StockQuantity,ReorderLevel
-PRD001,Laptop,Electronics,45000.0,65000.0,0,10
+PRD001,Laptop,Electronics,45000.0,65000.0,3,10
 PRD002,Desktop PC,Electronics,55000.0,80000.0,14,8
 PRD003,Wireless Mouse,Electronics,800.0,1500.0,57,20
 PRD004,USB Keyboard,Electronics,1200.0,2500.0,49,15
@@ -8,7 +8,6 @@ PRD006,Printer,Electronics,15000.0,22000.0,0,5
 PRD007,Webcam,Electronics,2500.0,4500.0,0,10
 PRD008,Headphones,Electronics,2000.0,4000.0,0,15
 PRD009,Smartphone,Electronics,35000.0,55000.0,22,15
-PRD010,Tablet,Electronics,25000.0,40000.0,0,10
 PRD011,Office Chair,Furniture,8000.0,15000.0,0,5
 PRD012,Desk,Furniture,12000.0,20000.0,0,5
 PRD013,Bookshelf,Furniture,10000.0,18000.0,0,3
@@ -19,3 +18,5 @@ PRD017,Stapler,Stationery,400.0,800.0,30,15
 PRD018,Notebook,Stationery,200.0,450.0,107,30
 PRD019,Coffee Maker,Appliances,7000.0,12000.0,0,5
 PRD020,Water Dispenser,Appliances,9000.0,15000.0,0,5
+PRD021,Laptop,Electronics,45000.0,65000.0,2,2
+PRD022,Tablet,Electronics,25000.0,40000.0,5,2

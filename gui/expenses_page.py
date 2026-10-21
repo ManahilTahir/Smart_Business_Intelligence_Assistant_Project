@@ -52,6 +52,20 @@ class ExpensesPage:
         self.category_combo.set("All")
         self.category_combo.pack(side="left", padx=5)
 
+        ctk.CTkLabel(filter_frame, text="Month:", font=ctk.CTkFont(size=13)).pack(side="left", padx=5)
+        months = ["All", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
+        self.month_combo = ctk.CTkComboBox(filter_frame, values=months, height=32, width=80,
+                                            command=self._on_month_year_change)
+        self.month_combo.set("All")
+        self.month_combo.pack(side="left", padx=5)
+
+        ctk.CTkLabel(filter_frame, text="Year:", font=ctk.CTkFont(size=13)).pack(side="left", padx=5)
+        years = ["All", "2024", "2025", "2026"]
+        self.year_combo = ctk.CTkComboBox(filter_frame, values=years, height=32, width=80,
+                                           command=self._on_month_year_change)
+        self.year_combo.set("All")
+        self.year_combo.pack(side="left", padx=5)
+
         create_search_bar(self.frame, self._on_search, "Search by category, description, date...")
         self._load_table()
 
@@ -66,6 +80,13 @@ class ExpensesPage:
 
         if category and category != "All":
             df = df[df["Category"].astype(str) == str(category)] if not df.empty else df
+
+        month = self.month_combo.get() if hasattr(self, "month_combo") else "All"
+        year = self.year_combo.get() if hasattr(self, "year_combo") else "All"
+        if not df.empty and month != "All":
+            df = df[df["Date"].astype(str).str[5:7] == month]
+        if not df.empty and year != "All":
+            df = df[df["Date"].astype(str).str[:4] == year]
 
         if df.empty:
             data = []
@@ -94,6 +115,10 @@ class ExpensesPage:
         search_text = self.search_entry.get().strip() if hasattr(self, "search_entry") else ""
         self._load_table(search_text, choice)
 
+    def _on_month_year_change(self, choice):
+        search_text = self.search_entry.get().strip() if hasattr(self, "search_entry") else ""
+        self._load_table(search_text, self.category_combo.get())
+
     def _open_add_form(self):
         self._show_form_dialog("Add New Expense")
 
@@ -107,7 +132,7 @@ class ExpensesPage:
     def _show_form_dialog(self, title, is_edit=False):
         dialog = ctk.CTkToplevel(self.frame)
         dialog.title(title)
-        dialog.geometry("450x480")
+        dialog.geometry("470x560")
         dialog.grab_set()
 
         ctk.CTkLabel(dialog, text=title, font=ctk.CTkFont(size=20, weight="bold"),

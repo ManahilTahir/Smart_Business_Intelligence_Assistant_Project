@@ -152,14 +152,20 @@ class BusinessApp:
         self.sidebar.grid_propagate(False)
 
         logo_frame = ctk.CTkFrame(self.sidebar, fg_color="transparent")
-        logo_frame.pack(fill="x", pady=(20, 10))
-        ctk.CTkLabel(logo_frame, text="📊", font=ctk.CTkFont(size=36)).pack()
+        logo_frame.pack(fill="x", pady=(15, 5))
+
+        logo_circle = ctk.CTkFrame(logo_frame, fg_color="#16568A", corner_radius=50,
+                                    width=80, height=80)
+        logo_circle.pack(pady=(5, 5))
+        logo_circle.pack_propagate(False)
+        ctk.CTkLabel(logo_circle, text="📊", font=ctk.CTkFont(size=40)).pack(expand=True)
+
         ctk.CTkLabel(logo_frame, text="BusinessHub",
-                     font=ctk.CTkFont(size=18, weight="bold"),
-                     text_color="white").pack(pady=(5, 0))
+                     font=ctk.CTkFont(size=20, weight="bold"),
+                     text_color="white").pack(pady=(2, 0))
         ctk.CTkLabel(logo_frame, text="Business Intelligence & Analytics",
                      font=ctk.CTkFont(size=11),
-                     text_color="#B0D4F1").pack()
+                     text_color="#B0D4F1").pack(pady=(1, 0))
 
         nav_frame = ctk.CTkFrame(self.sidebar, fg_color="transparent")
         nav_frame.pack(fill="both", expand=True, pady=10)

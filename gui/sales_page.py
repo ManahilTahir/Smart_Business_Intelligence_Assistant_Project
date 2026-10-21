@@ -45,6 +45,38 @@ class SalesPage:
 
         search_frame, self.search_entry = create_search_bar(self.frame, self._on_search,
                                                              "Search by product, customer, date...")
+
+        filter_frame = ctk.CTkFrame(self.frame, fg_color="transparent")
+        filter_frame.pack(fill="x", padx=20, pady=5)
+
+        ctk.CTkLabel(filter_frame, text="Month:", font=ctk.CTkFont(size=13)).pack(side="left", padx=5)
+        months = ["All", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
+        self.month_combo = ctk.CTkComboBox(filter_frame, values=months, height=32, width=80,
+                                            command=self._on_filter_change)
+        self.month_combo.set("All")
+        self.month_combo.pack(side="left", padx=5)
+
+        ctk.CTkLabel(filter_frame, text="Year:", font=ctk.CTkFont(size=13)).pack(side="left", padx=5)
+        years = ["All", "2024", "2025", "2026"]
+        self.year_combo = ctk.CTkComboBox(filter_frame, values=years, height=32, width=80,
+                                           command=self._on_filter_change)
+        self.year_combo.set("All")
+        self.year_combo.pack(side="left", padx=5)
+
+        ctk.CTkLabel(filter_frame, text="Product:", font=ctk.CTkFont(size=13)).pack(side="left", padx=5)
+        prod_names = ["All"] + self.app.product_manager.get_product_names()
+        self.prod_filter_combo = ctk.CTkComboBox(filter_frame, values=prod_names, height=32, width=150,
+                                                  command=self._on_filter_change)
+        self.prod_filter_combo.set("All")
+        self.prod_filter_combo.pack(side="left", padx=5)
+
+        ctk.CTkLabel(filter_frame, text="Payment:", font=ctk.CTkFont(size=13)).pack(side="left", padx=5)
+        pay_methods = ["All"] + self.app.sales_manager.get_payment_methods()
+        self.pay_filter_combo = ctk.CTkComboBox(filter_frame, values=pay_methods, height=32, width=130,
+                                                 command=self._on_filter_change)
+        self.pay_filter_combo.set("All")
+        self.pay_filter_combo.pack(side="left", padx=5)
+
         self._load_table()
 
     def _load_table(self, keyword=""):
@@ -55,6 +87,19 @@ class SalesPage:
             df = self.app.sales_manager.search_sales(keyword)
         else:
             df = self.app.sales_manager.get_all_sales()
+
+        month = self.month_combo.get() if hasattr(self, "month_combo") else "All"
+        year = self.year_combo.get() if hasattr(self, "year_combo") else "All"
+        prod_filter = self.prod_filter_combo.get() if hasattr(self, "prod_filter_combo") else "All"
+        pay_filter = self.pay_filter_combo.get() if hasattr(self, "pay_filter_combo") else "All"
+        if not df.empty and month != "All":
+            df = df[df["Date"].astype(str).str[5:7] == month]
+        if not df.empty and year != "All":
+            df = df[df["Date"].astype(str).str[:4] == year]
+        if not df.empty and prod_filter != "All":
+            df = df[df["Product"].astype(str) == str(prod_filter)]
+        if not df.empty and pay_filter != "All":
+            df = df[df["PaymentMethod"].astype(str) == str(pay_filter)]
 
         if df.empty:
             data = []
@@ -82,6 +127,10 @@ class SalesPage:
     def _on_search(self, keyword):
         self._load_table(keyword.strip())
 
+    def _on_filter_change(self, choice):
+        keyword = self.search_entry.get().strip() if hasattr(self, "search_entry") else ""
+        self._load_table(keyword)
+
     def _open_add_form(self):
         self._show_form_dialog("Add New Sale")
 
@@ -95,7 +144,7 @@ class SalesPage:
     def _show_form_dialog(self, title, is_update=False):
         dialog = ctk.CTkToplevel(self.frame)
         dialog.title(title)
-        dialog.geometry("450x520")
+        dialog.geometry("470x620")
         dialog.grab_set()
 
         ctk.CTkLabel(dialog, text=title, font=ctk.CTkFont(size=20, weight="bold"),
