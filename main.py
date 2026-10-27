@@ -25,6 +25,7 @@ from gui.inventory_page import InventoryPage
 from gui.analytics_page import AnalyticsPage
 from gui.reports_page import ReportsPage
 from gui.settings_page import SettingsPage
+from gui.forecast_page import ForecastPage
 
 from gui.components import COLORS
 
@@ -41,6 +42,7 @@ class BusinessApp:
         ("Expenses", "📉"),
         ("Inventory", "📋"),
         ("Analytics", "📊"),
+        ("Forecasting", "🔮"),
         ("Reports", "📄"),
         ("Settings", "⚙️"),
     ]
@@ -167,20 +169,22 @@ class BusinessApp:
                      font=ctk.CTkFont(size=11),
                      text_color="#B0D4F1").pack(pady=(1, 0))
 
-        nav_frame = ctk.CTkFrame(self.sidebar, fg_color="transparent")
-        nav_frame.pack(fill="both", expand=True, pady=10)
+        nav_frame = ctk.CTkScrollableFrame(self.sidebar, fg_color="transparent",
+                                            scrollbar_button_color="#16568A",
+                                            scrollbar_button_hover_color="#0E4470")
+        nav_frame.pack(fill="both", expand=True, pady=5)
 
         self.nav_buttons = {}
         for item_name, icon in self.NAV_ITEMS:
             btn = ctk.CTkButton(
                 nav_frame, text=f"  {icon}  {item_name}",
-                font=ctk.CTkFont(size=14, weight="bold"),
+                font=ctk.CTkFont(size=13, weight="bold"),
                 fg_color="transparent", hover_color="#16568A",
-                text_color="white", anchor="w", height=42,
+                text_color="white", anchor="w", height=38,
                 corner_radius=8,
                 command=lambda name=item_name: self.show_page(name),
             )
-            btn.pack(fill="x", padx=10, pady=3)
+            btn.pack(fill="x", padx=10, pady=2)
             self.nav_buttons[item_name] = btn
 
         status_frame = ctk.CTkFrame(self.sidebar, fg_color="transparent")
@@ -212,6 +216,7 @@ class BusinessApp:
             "Expenses": ExpensesPage(self.content_frame, self),
             "Inventory": InventoryPage(self.content_frame, self),
             "Analytics": AnalyticsPage(self.content_frame, self),
+            "Forecasting": ForecastPage(self.content_frame, self),
             "Reports": ReportsPage(self.content_frame, self),
             "Settings": SettingsPage(self.content_frame, self),
         }

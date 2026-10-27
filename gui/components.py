@@ -61,13 +61,37 @@ def card_fg():
     return "#FFFFFF"
 
 
+def text_fg():
+    if ctk.get_appearance_mode() == "Dark":
+        return "#E8E8E8"
+    return COLORS["text_dark"]
+
+
+def subtext_fg():
+    if ctk.get_appearance_mode() == "Dark":
+        return "#AAAAAA"
+    return COLORS["text_light"]
+
+
+def canvas_bg():
+    if ctk.get_appearance_mode() == "Dark":
+        return "#2B2B2B"
+    return "#FFFFFF"
+
+
+def grid_line_color():
+    if ctk.get_appearance_mode() == "Dark":
+        return "#444444"
+    return "#E0E0E0"
+
+
 def create_section_header(parent, title, subtitle=""):
     frame = ctk.CTkFrame(parent, fg_color="transparent")
     frame.pack(fill="x", padx=20, pady=(15, 5))
 
     label = ctk.CTkLabel(frame, text=title,
                          font=ctk.CTkFont(size=24, weight="bold"),
-                         text_color=COLORS["text_dark"] if ctk.get_appearance_mode() == "Light" else "white")
+                         text_color=text_fg())
     label.pack(anchor="center")
 
     if subtitle:
