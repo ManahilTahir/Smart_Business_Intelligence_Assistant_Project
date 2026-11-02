@@ -5,6 +5,7 @@ Provides business intelligence calculations and insights.
 
 import pandas as pd
 import numpy as np
+import time
 from analysis.calculations import Calculations
 from utils.helpers import Helpers
 
@@ -22,10 +23,25 @@ class DataAnalyzer:
         self.inventory_manager = inventory_manager
         self.vip_threshold = 100000
         self.regular_threshold = 30000
+        self._cache = {}
+        self._cache_ttl = 5.0
+
+    def clear_cache(self):
+        self._cache.clear()
+
+    def _cached(self, key, func):
+        if key in self._cache:
+            result, ts = self._cache[key]
+            if time.time() - ts < self._cache_ttl:
+                return result
+        result = func()
+        self._cache[key] = (result, time.time())
+        return result
 
     def set_thresholds(self, vip, regular):
         self.vip_threshold = vip
         self.regular_threshold = regular
+        self.clear_cache()
 
     def calculate_total_sales(self):
         if not self.sales_manager:
@@ -83,6 +99,9 @@ class DataAnalyzer:
         return self.inventory_manager.get_low_stock_count()
 
     def get_dashboard_kpis(self):
+        return self._cached("dashboard_kpis", self._compute_dashboard_kpis)
+
+    def _compute_dashboard_kpis(self):
         return {
             "total_sales": self.calculate_total_sales(),
             "total_expenses": self.calculate_total_expenses(),
@@ -94,6 +113,9 @@ class DataAnalyzer:
         }
 
     def get_sales_analysis(self):
+        return self._cached("sales_analysis", self._compute_sales_analysis)
+
+    def _compute_sales_analysis(self):
         result = {
             "total_sales": 0.0, "average_sale": 0.0,
             "max_sale": 0.0, "min_sale": 0.0,
@@ -127,6 +149,9 @@ class DataAnalyzer:
         return result
 
     def get_expense_analysis(self):
+        return self._cached("expense_analysis", self._compute_expense_analysis)
+
+    def _compute_expense_analysis(self):
         result = {
             "total_expenses": 0.0, "average_expense": 0.0,
             "highest_expense": 0.0, "expenses_by_category": pd.DataFrame(),
@@ -156,6 +181,9 @@ class DataAnalyzer:
         return result
 
     def get_product_performance(self):
+        return self._cached("product_performance", self._compute_product_performance)
+
+    def _compute_product_performance(self):
         if not self.sales_manager or not self.product_manager:
             return pd.DataFrame()
         sales_df = self.sales_manager.get_all_sales()
@@ -196,6 +224,9 @@ class DataAnalyzer:
         return perf_df
 
     def get_customer_analysis(self):
+        return self._cached("customer_analysis", self._compute_customer_analysis)
+
+    def _compute_customer_analysis(self):
         if not self.sales_manager or not self.customer_manager:
             return pd.DataFrame()
         sales_df = self.sales_manager.get_all_sales()
@@ -241,6 +272,9 @@ class DataAnalyzer:
         return top.to_dict()
 
     def get_business_insights(self):
+        return self._cached("business_insights", self._compute_business_insights)
+
+    def _compute_business_insights(self):
         insights = []
         kpis = self.get_dashboard_kpis()
         sales_analysis = self.get_sales_analysis()

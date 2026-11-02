@@ -6,6 +6,7 @@ A Python-based desktop Business Intelligence application.
 import os
 import sys
 import json
+import threading
 import customtkinter as ctk
 
 from utils.file_manager import FileManager
@@ -55,6 +56,8 @@ class BusinessApp:
         self._init_gui()
         self._init_pages()
         self.current_page = None
+        self._loading_frame = None
+        self._preload_data()
         self.show_page("Dashboard")
 
     def _setup_data_directory(self):
@@ -221,14 +224,49 @@ class BusinessApp:
             "Settings": SettingsPage(self.content_frame, self),
         }
 
+    def _preload_data(self):
+        def preload():
+            try:
+                a = self.analyzer
+                a.get_dashboard_kpis()
+                a.get_sales_analysis()
+                a.get_expense_analysis()
+                a.get_product_performance()
+                a.get_customer_analysis()
+                a.get_business_insights()
+            except Exception:
+                pass
+        threading.Thread(target=preload, daemon=True).start()
+
     def show_page(self, page_name):
+        if self.current_page == page_name:
+            return
+
         if self.current_page and self.current_page in self.pages:
             self.pages[self.current_page].hide()
 
         if page_name in self.pages:
-            self.pages[page_name].show()
-            self.current_page = page_name
+            self._show_loading()
             self._update_nav_buttons(page_name)
+            self.root.after(50, lambda: self._load_page_content(page_name))
+
+    def _show_loading(self):
+        if self._loading_frame:
+            self._loading_frame.destroy()
+        self._loading_frame = ctk.CTkFrame(self.content_frame, fg_color="transparent")
+        self._loading_frame.pack(expand=True)
+        ctk.CTkLabel(self._loading_frame, text="⏳ Loading data...",
+                     font=ctk.CTkFont(size=20, weight="bold"),
+                     text_color=COLORS["primary"]).pack(expand=True)
+        self.content_frame.update_idletasks()
+
+    def _load_page_content(self, page_name):
+        if self._loading_frame:
+            self._loading_frame.destroy()
+            self._loading_frame = None
+
+        self.pages[page_name].show()
+        self.current_page = page_name
 
     def _update_nav_buttons(self, active_name):
         for name, btn in self.nav_buttons.items():

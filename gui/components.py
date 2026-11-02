@@ -407,6 +407,8 @@ def create_line_chart(parent, title, labels, values, color="#2980B9", height=220
     canvas = Canvas(chart_wrap, bg=card_fg(), highlightthickness=0)
     canvas.pack(fill="both", expand=True)
 
+    tooltip_items = {"rect": None, "text": None}
+
     def draw_chart(event=None):
         canvas.delete("all")
         w = canvas.winfo_width()
@@ -418,7 +420,7 @@ def create_line_chart(parent, title, labels, values, color="#2980B9", height=220
         min_val = min(values) if values else 0
         left_pad = 55
         bottom_pad = 45
-        top_pad = 15
+        top_pad = 20
         right_pad = 15
         chart_w = w - left_pad - right_pad
         chart_h = h - bottom_pad - top_pad
@@ -444,8 +446,64 @@ def create_line_chart(parent, title, labels, values, color="#2980B9", height=220
                                fill=color, width=2)
 
         for x, y in points:
-            canvas.create_oval(x - 4, y - 4, x + 4, y + 4, fill=color, outline="white")
+            canvas.create_oval(x - 5, y - 5, x + 5, y + 5, fill=color, outline="white", width=2)
+
+        canvas._chart_points = [(p[0], p[1], labels[i], values[i]) for i, p in enumerate(points)]
+        tooltip_items["rect"] = None
+        tooltip_items["text"] = None
+
+    def on_motion(event):
+        if tooltip_items["rect"]:
+            canvas.delete(tooltip_items["rect"])
+            tooltip_items["rect"] = None
+        if tooltip_items["text"]:
+            canvas.delete(tooltip_items["text"])
+            tooltip_items["text"] = None
+
+        if not hasattr(canvas, "_chart_points"):
+            return
+
+        mx, my = event.x, event.y
+        nearest = None
+        min_dist = 35
+
+        for px, py, plabel, pval in canvas._chart_points:
+            dist = ((mx - px) ** 2 + (my - py) ** 2) ** 0.5
+            if dist < min_dist:
+                min_dist = dist
+                nearest = (px, py, plabel, pval)
+
+        if nearest:
+            px, py, plabel, pval = nearest
+            tooltip_text = f"  {plabel}: {pval:,.0f}  "
+            tw = len(tooltip_text) * 7 + 6
+            th = 24
+            tx = px + 12
+            ty = py - th - 6
+            if tx + tw > canvas.winfo_width() - 5:
+                tx = px - tw - 12
+            if ty < 5:
+                ty = py + 12
+
+            tooltip_items["rect"] = canvas.create_rectangle(
+                tx, ty, tx + tw, ty + th,
+                fill=COLORS["primary"], outline="white", width=1
+            )
+            tooltip_items["text"] = canvas.create_text(
+                tx + tw / 2, ty + th / 2, text=tooltip_text,
+                font=("Arial", 9, "bold"), fill="white"
+            )
+
+    def on_leave(event):
+        if tooltip_items["rect"]:
+            canvas.delete(tooltip_items["rect"])
+            tooltip_items["rect"] = None
+        if tooltip_items["text"]:
+            canvas.delete(tooltip_items["text"])
+            tooltip_items["text"] = None
 
     canvas.bind("<Configure>", draw_chart)
+    canvas.bind("<Motion>", on_motion)
+    canvas.bind("<Leave>", on_leave)
     chart_wrap.after(100, lambda: draw_chart())
     return frame
