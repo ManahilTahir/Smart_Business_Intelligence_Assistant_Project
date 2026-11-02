@@ -3,7 +3,8 @@ AnalyticsPage - Data analysis page with sales, expense, product, and customer an
 """
 
 import customtkinter as ctk
-from gui.components import (create_section_header, create_table, COLORS, card_fg)
+from gui.components import (create_section_header, create_table, COLORS, card_fg,
+                            text_fg, subtext_fg)
 from utils.helpers import Helpers
 from analysis.calculations import Calculations
 
@@ -64,9 +65,9 @@ class AnalyticsPage:
                                 border_width=1, border_color=COLORS["border"])
             card.pack(side="left", expand=True, fill="both", padx=5, pady=5)
             ctk.CTkLabel(card, text=label, font=ctk.CTkFont(size=12),
-                         text_color=COLORS["text_light"]).pack(pady=(8, 0))
+                         text_color=subtext_fg()).pack(pady=(8, 0))
             ctk.CTkLabel(card, text=value, font=ctk.CTkFont(size=16, weight="bold"),
-                         text_color=COLORS["text_dark"] if ctk.get_appearance_mode() == "Light" else "white").pack(pady=(2, 8))
+                         text_color=text_fg()).pack(pady=(2, 8))
 
         ctk.CTkLabel(tab, text="Sales by Product:", font=ctk.CTkFont(size=15, weight="bold"),
                      text_color=COLORS["primary"]).pack(anchor="w", padx=10, pady=(10, 0))
@@ -95,9 +96,9 @@ class AnalyticsPage:
                                 border_width=1, border_color=COLORS["border"])
             card.pack(side="left", expand=True, fill="both", padx=5, pady=5)
             ctk.CTkLabel(card, text=label, font=ctk.CTkFont(size=12),
-                         text_color=COLORS["text_light"]).pack(pady=(8, 0))
+                         text_color=subtext_fg()).pack(pady=(8, 0))
             ctk.CTkLabel(card, text=value, font=ctk.CTkFont(size=16, weight="bold"),
-                         text_color=COLORS["text_dark"] if ctk.get_appearance_mode() == "Light" else "white").pack(pady=(2, 8))
+                         text_color=text_fg()).pack(pady=(2, 8))
 
         ctk.CTkLabel(tab, text="Expense by Category (with percentages):", font=ctk.CTkFont(size=15, weight="bold"),
                      text_color=COLORS["primary"]).pack(anchor="w", padx=10, pady=(10, 0))
@@ -129,7 +130,7 @@ class AnalyticsPage:
                                 border_width=1, border_color=COLORS["border"])
             card.pack(side="left", expand=True, fill="both", padx=5, pady=5)
             ctk.CTkLabel(card, text=label, font=ctk.CTkFont(size=12),
-                         text_color=COLORS["text_light"]).pack(pady=(8, 0))
+                         text_color=subtext_fg()).pack(pady=(8, 0))
             ctk.CTkLabel(card, text=str(count), font=ctk.CTkFont(size=22, weight="bold"),
                          text_color=color).pack(pady=(2, 8))
 
@@ -160,13 +161,13 @@ class AnalyticsPage:
         for label, count, color in [
             ("VIP", summary.get("vip", 0), "#9B59B6"),
             ("Regular", summary.get("regular", 0), COLORS["info"]),
-            ("Occasional", summary.get("occasional", 0), COLORS["text_light"]),
+            ("Occasional", summary.get("occasional", 0), subtext_fg()),
         ]:
             card = ctk.CTkFrame(stats_frame, fg_color=card_fg(), corner_radius=10,
                                 border_width=1, border_color=COLORS["border"])
             card.pack(side="left", expand=True, fill="both", padx=5, pady=5)
             ctk.CTkLabel(card, text=label, font=ctk.CTkFont(size=12),
-                         text_color=COLORS["text_light"]).pack(pady=(8, 0))
+                         text_color=subtext_fg()).pack(pady=(8, 0))
             ctk.CTkLabel(card, text=str(count), font=ctk.CTkFont(size=22, weight="bold"),
                          text_color=color).pack(pady=(2, 8))
 

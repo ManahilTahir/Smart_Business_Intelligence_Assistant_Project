@@ -3,7 +3,8 @@ ReportsPage - Reports page showing sales, expense, profit, and inventory reports
 """
 
 import customtkinter as ctk
-from gui.components import (create_section_header, create_table, COLORS, card_fg)
+from gui.components import (create_section_header, create_table, COLORS, card_fg,
+                            text_fg, subtext_fg)
 from utils.helpers import Helpers
 
 
@@ -64,9 +65,9 @@ class ReportsPage:
             row = ctk.CTkFrame(info_frame, fg_color="transparent")
             row.pack(fill="x", padx=15, pady=3)
             ctk.CTkLabel(row, text=label, font=ctk.CTkFont(size=13),
-                         text_color=COLORS["text_light"]).pack(side="left", pady=5)
+                         text_color=subtext_fg()).pack(side="left", pady=5)
             ctk.CTkLabel(row, text=value, font=ctk.CTkFont(size=14, weight="bold"),
-                         text_color=COLORS["text_dark"] if ctk.get_appearance_mode() == "Light" else "white").pack(side="right", pady=5)
+                         text_color=text_fg()).pack(side="right", pady=5)
 
         ctk.CTkLabel(tab, text="Sales by Category:", font=ctk.CTkFont(size=15, weight="bold"),
                      text_color=COLORS["primary"]).pack(anchor="w", padx=10, pady=(10, 0))
@@ -97,9 +98,9 @@ class ReportsPage:
             row = ctk.CTkFrame(info_frame, fg_color="transparent")
             row.pack(fill="x", padx=15, pady=3)
             ctk.CTkLabel(row, text=label, font=ctk.CTkFont(size=13),
-                         text_color=COLORS["text_light"]).pack(side="left", pady=5)
+                         text_color=subtext_fg()).pack(side="left", pady=5)
             ctk.CTkLabel(row, text=value, font=ctk.CTkFont(size=14, weight="bold"),
-                         text_color=COLORS["text_dark"] if ctk.get_appearance_mode() == "Light" else "white").pack(side="right", pady=5)
+                         text_color=text_fg()).pack(side="right", pady=5)
 
         ctk.CTkLabel(tab, text="Expenses by Category:", font=ctk.CTkFont(size=15, weight="bold"),
                      text_color=COLORS["primary"]).pack(anchor="w", padx=10, pady=(10, 0))
@@ -137,7 +138,7 @@ class ReportsPage:
             row = ctk.CTkFrame(info_frame, fg_color="transparent")
             row.pack(fill="x", padx=15, pady=4)
             ctk.CTkLabel(row, text=label, font=ctk.CTkFont(size=14),
-                         text_color=COLORS["text_light"]).pack(side="left", pady=5)
+                         text_color=subtext_fg()).pack(side="left", pady=5)
             ctk.CTkLabel(row, text=value, font=ctk.CTkFont(size=16, weight="bold"),
                          text_color=color).pack(side="right", pady=5)
 
@@ -159,9 +160,9 @@ class ReportsPage:
             row = ctk.CTkFrame(info_frame, fg_color="transparent")
             row.pack(fill="x", padx=15, pady=3)
             ctk.CTkLabel(row, text=label, font=ctk.CTkFont(size=13),
-                         text_color=COLORS["text_light"]).pack(side="left", pady=5)
+                         text_color=subtext_fg()).pack(side="left", pady=5)
             ctk.CTkLabel(row, text=value, font=ctk.CTkFont(size=14, weight="bold"),
-                         text_color=COLORS["text_dark"] if ctk.get_appearance_mode() == "Light" else "white").pack(side="right", pady=5)
+                         text_color=text_fg()).pack(side="right", pady=5)
 
         ctk.CTkLabel(tab, text="Low Stock Items:", font=ctk.CTkFont(size=15, weight="bold"),
                      text_color=COLORS["primary"]).pack(anchor="w", padx=10, pady=(10, 0))

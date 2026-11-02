@@ -6,7 +6,7 @@ import json
 import os
 import customtkinter as ctk
 from tkinter import messagebox
-from gui.components import create_section_header, create_button, COLORS, card_fg
+from gui.components import create_section_header, create_button, COLORS, card_fg, subtext_fg
 
 
 class SettingsPage:
@@ -106,7 +106,7 @@ class SettingsPage:
                      text="A Python-based desktop Business Intelligence & Analytics application using OOP, Pandas, NumPy, and CustomTkinter.\n"
                           "No AI/ML is used. All insights are generated from rule-based data analysis.",
                      font=ctk.CTkFont(size=13),
-                     text_color=COLORS["text_light"]).pack(anchor="w", padx=20, pady=(0, 15))
+                     text_color=subtext_fg()).pack(anchor="w", padx=20, pady=(0, 15))
 
     def _save_settings(self):
         try:

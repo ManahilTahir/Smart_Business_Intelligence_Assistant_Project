@@ -5,7 +5,7 @@ InventoryPage - Inventory management page showing stock status.
 import customtkinter as ctk
 from tkinter import messagebox
 from gui.components import (create_section_header, create_button, create_table,
-                            create_search_bar, COLORS, card_fg)
+                            create_search_bar, COLORS, card_fg, subtext_fg)
 from utils.helpers import Helpers
 
 
@@ -50,7 +50,7 @@ class InventoryPage:
                                  border_width=1, border_color=COLORS["border"])
             badge.pack(side="left", expand=True, fill="both", padx=5, pady=5)
             ctk.CTkLabel(badge, text=label, font=ctk.CTkFont(size=13),
-                         text_color=COLORS["text_light"]).pack(pady=(8, 0))
+                         text_color=subtext_fg()).pack(pady=(8, 0))
             ctk.CTkLabel(badge, text=str(count), font=ctk.CTkFont(size=22, weight="bold"),
                          text_color=color).pack(pady=(2, 8))
 
@@ -58,7 +58,7 @@ class InventoryPage:
                                     border_width=1, border_color=COLORS["border"])
         value_badge.pack(side="left", expand=True, fill="both", padx=5, pady=5)
         ctk.CTkLabel(value_badge, text="Inventory Value", font=ctk.CTkFont(size=13),
-                     text_color=COLORS["text_light"]).pack(pady=(8, 0))
+                     text_color=subtext_fg()).pack(pady=(8, 0))
         ctk.CTkLabel(value_badge, text=Helpers.format_currency(total_value, currency),
                      font=ctk.CTkFont(size=18, weight="bold"),
                      text_color=COLORS["primary"]).pack(pady=(2, 8))

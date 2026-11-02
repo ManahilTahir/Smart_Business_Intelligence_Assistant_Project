@@ -97,7 +97,7 @@ def create_section_header(parent, title, subtitle=""):
     if subtitle:
         sub = ctk.CTkLabel(frame, text=subtitle,
                            font=ctk.CTkFont(size=13),
-                           text_color=COLORS["text_light"])
+                           text_color=subtext_fg())
         sub.pack(anchor="center", pady=(2, 0))
 
     return frame
@@ -123,7 +123,7 @@ def create_input(parent, label_text, placeholder="", width=200):
 
     label = ctk.CTkLabel(frame, text=label_text,
                          font=ctk.CTkFont(size=13),
-                         text_color=COLORS["text_dark"] if ctk.get_appearance_mode() == "Light" else "white")
+                         text_color=text_fg())
     label.pack(anchor="w")
 
     entry = ctk.CTkEntry(frame, placeholder_text=placeholder, width=width,
@@ -182,7 +182,7 @@ def create_table(parent, columns, data, row_height=30, heading_height=35):
     if not data:
         empty = ctk.CTkLabel(frame, text="No data available",
                              font=ctk.CTkFont(size=14),
-                             text_color=COLORS["text_light"])
+                             text_color=subtext_fg())
         empty.pack(expand=True)
         return frame
 
@@ -212,7 +212,7 @@ def create_table(parent, columns, data, row_height=30, heading_height=35):
 
         for c, col_name in enumerate(columns):
             value = row_data.get(col_name, "")
-            text_color = COLORS["text_dark"] if ctk.get_appearance_mode() == "Light" else "white"
+            text_color = text_fg()
             if col_name == "StockStatus":
                 from utils.helpers import Helpers
                 text_color = Helpers.stock_status_color(str(value))
@@ -271,7 +271,7 @@ def create_bar_chart(parent, title, labels, values, color="#3498DB", height=220)
 
     if not labels or not values:
         ctk.CTkLabel(frame, text="No data", font=ctk.CTkFont(size=12),
-                     text_color=COLORS["text_light"]).pack(pady=20)
+                     text_color=subtext_fg()).pack(pady=20)
         return frame
 
     chart_wrap = ctk.CTkFrame(frame, fg_color=card_fg())
@@ -290,7 +290,7 @@ def create_bar_chart(parent, title, labels, values, color="#3498DB", height=220)
         max_val = max(values) if max(values) > 0 else 1
         left_pad = 50
         bottom_pad = 45
-        top_pad = 15
+        top_pad = 22
         right_pad = 15
         chart_w = w - left_pad - right_pad
         chart_h = h - bottom_pad - top_pad
@@ -300,9 +300,9 @@ def create_bar_chart(parent, title, labels, values, color="#3498DB", height=220)
         for i in range(5):
             y = top_pad + chart_h - (chart_h * i / 4)
             val = max_val * i / 4
-            canvas.create_line(left_pad, y, w - right_pad, y, fill="#E0E0E0", dash=(2, 2))
+            canvas.create_line(left_pad, y, w - right_pad, y, fill=grid_line_color(), dash=(2, 2))
             canvas.create_text(left_pad - 5, y, text=f"{val:,.0f}", anchor="e",
-                               font=("Arial", 8), fill="#7F8C8D")
+                               font=("Arial", 8), fill=subtext_fg())
 
         for i, (label, val) in enumerate(zip(labels, values)):
             x = left_pad + i * (bar_w + gap) + gap / 2
@@ -312,10 +312,14 @@ def create_bar_chart(parent, title, labels, values, color="#3498DB", height=220)
             canvas.create_rectangle(x, y_top, x + bar_w, top_pad + chart_h,
                                     fill=bar_color, outline="")
             canvas.create_text(x + bar_w / 2, top_pad + chart_h + 8, text=str(label)[:10],
-                               anchor="n", font=("Arial", 8), fill="#2C3E50", angle=0)
-            if bar_h > 20:
-                canvas.create_text(x + bar_w / 2, y_top - 5, text=f"{val:,.0f}",
-                                   anchor="s", font=("Arial", 8), fill="#2C3E50")
+                               anchor="n", font=("Arial", 8), fill=text_fg(), angle=0)
+            if bar_h > 15:
+                if y_top > 20:
+                    canvas.create_text(x + bar_w / 2, y_top - 4, text=f"{val:,.0f}",
+                                       anchor="s", font=("Arial", 8), fill=text_fg())
+                else:
+                    canvas.create_text(x + bar_w / 2, y_top + 12, text=f"{val:,.0f}",
+                                       anchor="n", font=("Arial", 8, "bold"), fill="white")
 
     canvas.bind("<Configure>", draw_chart)
     chart_wrap.after(100, lambda: draw_chart())
@@ -333,7 +337,7 @@ def create_pie_chart(parent, title, labels, values, height=220):
 
     if not labels or not values:
         ctk.CTkLabel(frame, text="No data", font=ctk.CTkFont(size=12),
-                     text_color=COLORS["text_light"]).pack(pady=20)
+                     text_color=subtext_fg()).pack(pady=20)
         return frame
 
     chart_wrap = ctk.CTkFrame(frame, fg_color=card_fg())
@@ -377,7 +381,7 @@ def create_pie_chart(parent, title, labels, values, height=220):
                 break
             canvas.create_rectangle(legend_x, ly, legend_x + 12, ly + 12, fill=color, outline="")
             canvas.create_text(legend_x + 16, ly + 6, text=str(label)[:12], anchor="w",
-                               font=("Arial", 9), fill="#2C3E50")
+                               font=("Arial", 9), fill=text_fg())
 
     canvas.bind("<Configure>", draw_chart)
     chart_wrap.after(100, lambda: draw_chart())
@@ -394,7 +398,7 @@ def create_line_chart(parent, title, labels, values, color="#2980B9", height=220
 
     if not labels or not values:
         ctk.CTkLabel(frame, text="No data", font=ctk.CTkFont(size=12),
-                     text_color=COLORS["text_light"]).pack(pady=20)
+                     text_color=subtext_fg()).pack(pady=20)
         return frame
 
     chart_wrap = ctk.CTkFrame(frame, fg_color=card_fg())
@@ -423,9 +427,9 @@ def create_line_chart(parent, title, labels, values, color="#2980B9", height=220
         for i in range(5):
             y = top_pad + chart_h - (chart_h * i / 4)
             val = min_val + (max_val - min_val) * i / 4
-            canvas.create_line(left_pad, y, w - right_pad, y, fill="#E0E0E0", dash=(2, 2))
+            canvas.create_line(left_pad, y, w - right_pad, y, fill=grid_line_color(), dash=(2, 2))
             canvas.create_text(left_pad - 5, y, text=f"{val:,.0f}", anchor="e",
-                               font=("Arial", 8), fill="#7F8C8D")
+                               font=("Arial", 8), fill=subtext_fg())
 
         points = []
         for i, (label, val) in enumerate(zip(labels, values)):
@@ -433,7 +437,7 @@ def create_line_chart(parent, title, labels, values, color="#2980B9", height=220
             y = top_pad + chart_h - ((val - min_val) / val_range) * chart_h
             points.append((x, y))
             canvas.create_text(x, top_pad + chart_h + 8, text=str(label)[:10],
-                               anchor="n", font=("Arial", 8), fill="#2C3E50")
+                               anchor="n", font=("Arial", 8), fill=text_fg())
 
         for i in range(len(points) - 1):
             canvas.create_line(points[i][0], points[i][1], points[i + 1][0], points[i + 1][1],

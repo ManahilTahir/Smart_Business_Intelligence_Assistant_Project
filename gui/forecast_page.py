@@ -4,7 +4,8 @@ ForecastPage - ML forecasting page showing predictions for all business areas.
 
 import customtkinter as ctk
 from gui.components import (create_section_header, create_button, create_table,
-                            create_bar_chart, create_line_chart, COLORS, card_fg)
+                            create_bar_chart, create_line_chart, COLORS, card_fg,
+                            subtext_fg)
 from utils.helpers import Helpers
 from ml.forecaster import Forecaster
 
@@ -47,7 +48,7 @@ class ForecastPage:
 
         self.status_label = ctk.CTkLabel(self.frame, text="Click 'Generate Forecasts' to run ML predictions",
                                           font=ctk.CTkFont(size=13),
-                                          text_color=COLORS["text_light"])
+                                          text_color=subtext_fg())
         self.status_label.pack(pady=5)
 
         self.results_frame = ctk.CTkScrollableFrame(self.frame, fg_color="transparent")
@@ -141,7 +142,7 @@ class ForecastPage:
     def _build_sales_tab(self, tab, data, currency):
         if "error" in data:
             ctk.CTkLabel(tab, text=data["error"], font=ctk.CTkFont(size=13),
-                         text_color=COLORS["text_light"]).pack(pady=20)
+                         text_color=subtext_fg()).pack(pady=20)
             return
 
         fc = data.get("revenue_forecast", [])
@@ -160,7 +161,7 @@ class ForecastPage:
     def _build_expense_tab(self, tab, data, currency):
         if "error" in data:
             ctk.CTkLabel(tab, text=data["error"], font=ctk.CTkFont(size=13),
-                         text_color=COLORS["text_light"]).pack(pady=20)
+                         text_color=subtext_fg()).pack(pady=20)
             return
 
         fc = data.get("expense_forecast", [])
@@ -179,7 +180,7 @@ class ForecastPage:
     def _build_profit_tab(self, tab, data, currency):
         if "error" in data:
             ctk.CTkLabel(tab, text=data["error"], font=ctk.CTkFont(size=13),
-                         text_color=COLORS["text_light"]).pack(pady=20)
+                         text_color=subtext_fg()).pack(pady=20)
             return
 
         fc = data.get("profit_forecast", [])
@@ -199,7 +200,7 @@ class ForecastPage:
     def _build_product_tab(self, tab, data, currency):
         if "error" in data:
             ctk.CTkLabel(tab, text=data["error"], font=ctk.CTkFont(size=13),
-                         text_color=COLORS["text_light"]).pack(pady=20)
+                         text_color=subtext_fg()).pack(pady=20)
             return
 
         fc = data.get("product_forecast", [])
@@ -221,7 +222,7 @@ class ForecastPage:
     def _build_customer_tab(self, tab, data, currency):
         if "error" in data:
             ctk.CTkLabel(tab, text=data["error"], font=ctk.CTkFont(size=13),
-                         text_color=COLORS["text_light"]).pack(pady=20)
+                         text_color=subtext_fg()).pack(pady=20)
             return
 
         fc = data.get("customer_forecast", [])
@@ -236,7 +237,7 @@ class ForecastPage:
     def _build_inventory_tab(self, tab, data, currency):
         if "error" in data:
             ctk.CTkLabel(tab, text=data["error"], font=ctk.CTkFont(size=13),
-                         text_color=COLORS["text_light"]).pack(pady=20)
+                         text_color=subtext_fg()).pack(pady=20)
             return
 
         fc = data.get("inventory_forecast", [])

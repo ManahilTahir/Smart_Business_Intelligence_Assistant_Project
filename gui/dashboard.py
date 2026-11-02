@@ -4,7 +4,8 @@ Dashboard - Main dashboard page showing KPI cards and business insights.
 
 import customtkinter as ctk
 from gui.components import (create_card, create_section_header, COLORS, card_fg,
-                            create_bar_chart, create_line_chart, create_pie_chart)
+                            create_bar_chart, create_line_chart, create_pie_chart,
+                            text_fg, subtext_fg)
 from utils.helpers import Helpers
 
 
@@ -127,14 +128,14 @@ class Dashboard:
 
         sub = ctk.CTkLabel(insights_frame, text="Generated from actual business data using rule-based analysis",
                            font=ctk.CTkFont(size=12),
-                           text_color=COLORS["text_light"])
+                           text_color=subtext_fg())
         sub.pack(anchor="w", padx=15, pady=(0, 10))
 
         insights = self.app.analyzer.get_business_insights()
         if not insights:
             no_data = ctk.CTkLabel(insights_frame, text="No insights available. Add more data to generate insights.",
                                    font=ctk.CTkFont(size=13),
-                                   text_color=COLORS["text_light"])
+                                   text_color=subtext_fg())
             no_data.pack(pady=20)
             return
 
@@ -153,7 +154,7 @@ class Dashboard:
 
             text_label = ctk.CTkLabel(insight_frame, text=insight,
                                       font=ctk.CTkFont(size=13),
-                                      text_color=COLORS["text_dark"] if ctk.get_appearance_mode() == "Light" else "white",
+                                      text_color=text_fg(),
                                       wraplength=800, anchor="w")
             text_label.pack(side="left", fill="x", expand=True, padx=5, pady=8)
     def _show_card_charts(self, card_title):
